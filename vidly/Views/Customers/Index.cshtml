@@ -1,0 +1,39 @@
+﻿@model IEnumerable<vidly.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-danger" role="alert">
+        <p>We Don't Have Any Customers yet</p>
+    </div>
+}
+else
+{
+    <table class="table">
+        <tbody>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Membership Type</th>
+
+            </tr>
+        </thead>
+        @{ var counter = 1; }
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <th scope="row">@counter</th>
+                <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
+                <td>@customer.MembershipType.Name</td>
+            </tr>
+            counter++;
+        }
+        </tbody>
+    </table>
+}
