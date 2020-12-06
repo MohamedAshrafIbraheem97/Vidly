@@ -34,9 +34,18 @@ namespace vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    Genres = _context.Genres.ToList()
+                };
 
+                return View("MovieForm", viewModel);
+            }
             if (movie.Id == 0)
             {
                 movie.DateAdded = DateTime.Now;
@@ -76,24 +85,6 @@ namespace vidly.Controllers
         //    return View(movie);
         //}
 
-        // GET: Movies/Random
-        public ActionResult Random()
-        {
-            var movie = new Movie() { Name = "Shrek!" };
-            var customers = new List<Customer>
-            {
-                new Customer { Name = "customer 1"},
-                new Customer { Name = "customer 2"}
-            };
-
-            var viewModel = new RandomMovieViewModel
-            {
-                Movie = movie,
-                Customers = customers
-            };
-
-            return View(viewModel);
-        }
 
         public ActionResult Edit(int id)
         {
@@ -102,9 +93,8 @@ namespace vidly.Controllers
             if (movie == null)
                 return HttpNotFound();
             
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie, 
                 Genres = _context.Genres.ToList()
             };
             return View("MovieForm", viewModel);
