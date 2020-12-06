@@ -5,6 +5,9 @@
 }
 
 <h2>Movies</h2>
+@Html.ActionLink("Add Movie","New","Movies",null,new { @class = "btn btn-primary"})
+<br />
+<br />
 @if (Model.Movies.Count == 0)
 {
     <div class="alert alert-danger" role="alert">
@@ -28,7 +31,7 @@ else
         {
             <tr>
                 <th scope="row">@counter</th>
-                <td>@Html.ActionLink(movie.Name,"Details","Movies",new { id = movie.Id}, null)</td>
+                <td>@Html.ActionLink(movie.Name,"Edit","Movies",new { id = movie.Id}, null)</td>
                 <td>@movie.Genre.Name</td>
             </tr>
             counter++;
