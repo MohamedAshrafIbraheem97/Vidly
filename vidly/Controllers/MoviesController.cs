@@ -69,11 +69,11 @@ namespace vidly.Controllers
         [Route("Movies")]
         public ActionResult Index()
         {
-            var moviesList = _context.Movies.Include(m => m.Genre).ToList();
+            //var moviesList = _context.Movies.Include(m => m.Genre).ToList();
 
-            var movies = new MoviesViewModel { Movies = moviesList };
+            //var movies = new MoviesViewModel { Movies = moviesList };
 
-            return View(movies);
+            return View(/*movies*/);
         }
         //[Route("Movies/{id}")]
         //public ActionResult Details(int id)
